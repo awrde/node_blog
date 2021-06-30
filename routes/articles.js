@@ -43,7 +43,23 @@ router.get('/:slug', async (req, res) => {
 //   next()
 // }, saveArticleAndRedirect('new'))
 
+router.post('/', function(req, res){
+  let article = new Article();
+  article.title = req.body.title
+  article.description = req.body.description
+  article.writer = req.body.writer
+  article.password = req.body.password
 
+  article.save(function(err){
+      if(err){
+          console.error(err);
+          res.json({result: 0});
+          return;
+      }
+
+      res.json({result: 1});
+  });
+});
 
 router.put('/:id', async (req, res, next) => {
   req.article = await Article.findById(req.params.id)
@@ -53,6 +69,7 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res) => {
   await Article.findByIdAndDelete(req.params.id)
   res.redirect('/')
+  
 })
 
 function saveArticleAndRedirect(path) {

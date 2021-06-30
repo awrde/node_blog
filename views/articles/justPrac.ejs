@@ -1,0 +1,32 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+
+    function check_pw(status) {
+    console.log(status)
+    let pw = $('#password').val()
+    console.log(pw)
+    let _pw =  `${article}`   // 형태 콘솔 찍어서 확인
+    console.log(_pw)
+    if (pw != _pw) {
+      alert('하지마')
+      return
+    } 
+    if(status === 'edit') {
+
+
+    } 
+    else if (status === 'delete'){
+      $.ajax(
+        { type: 'DELETE', 
+          url: `/${article.id}`,
+          data: {}, 
+          success: function(response) { 
+            if(response.result == '1'){ 
+              alert('삭제되었습니다.') 
+              window.location.href=`/` 
+            } 
+          } 
+        })
+    }
+  }
+  </script>

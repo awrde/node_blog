@@ -13,9 +13,11 @@
     <div class="text-muted mb-2">
       <%= article.createdAt.toLocaleDateString() %>
     </div>
-    <a href="/" class="btn btn-secondary">All Articles</a>
-    <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
-
+    <a href="/" class="btn btn-secondary">돌아가기</a>
+    <a href="/articles/edit/<%= article.id %>" class="btn btn-info">수정하기</a>
+    <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+      <button type="submit" class="btn btn-danger">삭제하기</button>
+    </form>
     <div>
       내용 : <%= article.description %>
     </div>
