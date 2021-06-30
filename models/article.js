@@ -13,9 +13,15 @@ const articleSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  markdown: {
-    type: String,
-    required: true
+  // markdown: {
+  //   type: String,
+  //   required: true
+  // },
+  writer: {
+    type: String
+  },
+  password: {
+    type: String
   },
   createdAt: {
     type: Date,

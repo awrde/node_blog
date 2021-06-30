@@ -9,21 +9,21 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="mb-4">Blog Articles</h1>
-    <a href="/articles/new" class="btn btn-success">New Article</a>
+    <h1 class="mb-4">전체 게시글 조회 페이지</h1>
+    <a href="/articles/new" class="btn btn-success">게시글 작성하기</a>
 
     <% articles.forEach(article => { %>
       <div class="card mt-4">
         <div class="card-body">
-          <h4 class="card-title"><%= article.title %></h4>
+          <h4 class="card-title">제목 : <%= article.title %></h4>
           <div class="card-subtitle text-muted mb-2">
             <%= article.createdAt.toLocaleDateString() %>
           </div>
-          <div class="card-text mb-2"><%= article.description %></div>
-          <a href="articles/<%= article.slug %>" class="btn btn-primary">Read More</a>
-          <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
+          <div class="card-text mb-2">작성자 : <%= article.writer%></div>
+          <a href="articles/<%= article.slug %>" class="btn btn-primary">게시글 조회</a>
+          <a href="articles/edit/<%= article.id %>" class="btn btn-info">수정하기</a>
           <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger">삭제하기</button>
           </form>
         </div>
       </div>

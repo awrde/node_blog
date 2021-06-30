@@ -1,10 +1,10 @@
 {
   "name": "markdown-blog",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "slugify": "^1.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.8"
-  }
+    "nodemon": "^2.0.2"
+  },
+  "description": ""
 }

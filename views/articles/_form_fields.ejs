@@ -1,15 +1,19 @@
 <div class="form-group">
-  <label for="title">Title</label>
+  <label for="title">제목</label>
   <input required value="<%= article.title %>" type="text" name="title" id="title" class="form-control">
 </div>
 <div class="form-group">
-  <label for="description">Description</label>
+  <label for="description">내용</label>
   <textarea name="description" id="description" class="form-control"><%= article.description %></textarea>
 </div>
 <div class="form-group">
-  <label for="markdown">Markdown</label>
-  <textarea required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
+  <label for="writer">작성자</label>
+  <textarea required name="writer" id="writer" class="form-control"><%= article.writer %></textarea>
+</div>
+<div class="form-group">
+  <label for="password">비밀번호</label>
+  <textarea required name="password" id="password" class="form-control"><%= article.password %></textarea>
 </div>
 
-<a href="/" class="btn btn-secondary">Cancel</a>
-<button type="submit" class="btn btn-primary">Save</button>
+<a href="/" class="btn btn-secondary">돌아가기</a>
+<button type="submit" class="btn btn-primary">글쓰기</button>

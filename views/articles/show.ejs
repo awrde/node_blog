@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="mb-1"><%= article.title %></h1>
+    <h1 class="mb-1">제목 : <%= article.title %></h1>
     <div class="text-muted mb-2">
       <%= article.createdAt.toLocaleDateString() %>
     </div>
@@ -17,7 +17,10 @@
     <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
 
     <div>
-      <%- article.sanitizedHtml %>
+      내용 : <%= article.description %>
+    </div>
+    <div>
+      작성자 : <%= article.writer %>
     </div>
   </div>
 </body>
