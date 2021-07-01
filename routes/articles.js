@@ -2,35 +2,47 @@ const express = require('express')
 const Article = require('./../models/article')
 const router = express.Router()
 
-// 저장 및 홈페이지로 나가기를 원하는데 저장이 안된다.
-router.put('/test', async (req, res) => {
-  let article = new Article({
-    title : req.body.title,
-    description : req.body.description,
-    writer: req.body.writer,
-    password: req.body.password
-  })
-  try {
-    console.log('?')
-    article = await article.save()
-    console.log('>?')
-    res.redirect(`/articles/${article.id}`)
-  }catch (e) {
-    console.log(e)
-    console.log('f')
-    res.render('articles/new', { article: article })
-  }
-})
-
 
 router.get('/new', (req, res) => {
   res.render('articles/new', { article: new Article() })
 })
 
+
 router.get('/edit/:id', async (req, res) => {
   const article = await Article.findById(req.params.id)
   res.render('articles/edit', { article: article })
 })
+
+
+router.put('/edit/', async (req, res) => {
+  password = req.body[`password`]
+  _id = req.body[`_id`]
+  title = req.body[`title`]
+  description = req.body[`description`]
+  writer = req.body[`writer`]
+  find = await Article.findOne({ _id: _id, password: password })
+  if (find != null) {
+    await Article.updateOne( { _id }, { $set: {title, description, writer} } )
+    res.send('correct')
+  } else {
+    res.send('false')
+  }
+})
+
+
+router.delete('/edit', async (req, res) => {
+  password = req.body.password
+  _id = req.body._id
+  find = await Article.findOne({ _id: _id, password: password })
+  console.log(find)
+  if (find != null) {
+    await Article.findByIdAndDelete(_id)
+    res.send('correct')
+  } else {
+    res.send('wrong')
+  }
+})
+
 
 router.get('/:slug', async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
@@ -38,46 +50,35 @@ router.get('/:slug', async (req, res) => {
   res.render('articles/show', { article: article })
 })
 
-// router.post('/', async (req, res, next) => {
-//   req.article = new Article()
-//   next()
-// }, saveArticleAndRedirect('new'))
 
-router.post('/', function(req, res){
+router.post('/', function (req, res) {
   let article = new Article();
   article.title = req.body.title
   article.description = req.body.description
   article.writer = req.body.writer
   article.password = req.body.password
-
-  article.save(function(err){
-      if(err){
-          console.error(err);
-          res.json({result: 0});
-          return;
-      }
-
-      res.json({result: 1});
+  article.save(function (err) {
+    if (err) {
+      console.error(err);
+      res.json({ result: '이미 존재하는 제목이다! 뒤로가서 수정하자!' });
+      return;
+    }
+    res.redirect('/')
   });
 });
+
 
 router.put('/:id', async (req, res, next) => {
   req.article = await Article.findById(req.params.id)
   next()
 }, saveArticleAndRedirect('edit'))
 
-router.delete('/:id', async (req, res) => {
-  await Article.findByIdAndDelete(req.params.id)
-  res.redirect('/')
-  
-})
 
 function saveArticleAndRedirect(path) {
   return async (req, res) => {
     let article = req.article
     article.title = req.body.title
     article.description = req.body.description
-    // article.markdown = req.body.markdown
     article.writer = req.body.writer
     article.password = req.body.password
     try {
